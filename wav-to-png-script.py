@@ -9,8 +9,9 @@ from scipy import signal
 from scipy.fft import fftshift
 import matplotlib.pyplot as plt
 
-wav_fname = "./data/file_example_WAV_1MG.wav"
-image_fname = "test_spectrogram"
+# test names
+#wav_fname = "./data/file_example_WAV_1MG.wav"
+#image_fname = "test_spectrogram"
 
 def make_save_spectro(wav_fname, image_fname): 
     """ inputs:
@@ -20,13 +21,19 @@ def make_save_spectro(wav_fname, image_fname):
     saves it as a png named image_fname
     """
     # extract info
-    samplerate, data = sio.wavfile.read(wav_fname)
+    samplerate, data = sio.wavfile.read(wav_fname) # problem here?
     length = data.shape[0] / samplerate # sample/sample_rate = time
 
     # make spectrogram
     freqs, time_segs, spectro_array = signal.spectrogram(data[:, 0], samplerate)
     plt.figure()
-    plt.pcolormesh(time_segs, freqs, spectro_array)
-    plt.savefig(image_fname)
+    # need to remove tick marks and border
+    #plt.pcolormesh(time_segs, freqs, spectro_array)
+    plt.imsave(image_fname + ".png", spectro_array, format="png", cmap=None)
 
-make_save_spectro(wav_fname, image_fname)
+# test run
+#make_save_spectro(wav_fname, image_fname)
+
+# for loop to run over one folder at time?
+
+
