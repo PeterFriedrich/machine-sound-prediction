@@ -9,9 +9,34 @@ from scipy import signal
 from scipy.fft import fftshift
 import matplotlib.pyplot as plt
 
+import sys
+import os
+
 # test names
 #wav_fname = "./data/file_example_WAV_1MG.wav"
 #image_fname = "test_spectrogram"
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("use: python script.py <start file name> <end file name> <wav_folder>")
+        return 0
+
+    wav_fname = sys.argv[1]
+    end_name = sys.argv[2]
+    wav_folder = sys.argv[3]
+    image_fname = wav_fname[5:] + '_spectro'
+   
+    # get file count
+    _, _, files = next(os.walk(wav_folder))
+    file_count = len(files)
+
+    # go through
+    for i in range(file_count):
+            make_save_spectro(wav_fname, image_fname)
+            # how to increment wav_fname
+            wav_fname = wav_fname[:-1] + str() 
+            image_fname = image_fname[:-1] + str()
 
 def make_save_spectro(wav_fname, image_fname): 
     """ inputs:
@@ -31,9 +56,6 @@ def make_save_spectro(wav_fname, image_fname):
     #plt.pcolormesh(time_segs, freqs, spectro_array)
     plt.imsave(image_fname + ".png", spectro_array, format="png", cmap=None)
 
-# test run
-#make_save_spectro(wav_fname, image_fname)
-
-# for loop to run over one folder at time?
-
+if __name__ == "__main__":
+    main()
 
