@@ -19,24 +19,33 @@ import os
 
 def main():
     if len(sys.argv) < 2:
-        print("use: python script.py <start file name> <end file name> <wav_folder>")
+        print("use: python script.py <start file name> <end file name> <wav_folder> <destination folder>")
         return 0
 
     wav_fname = sys.argv[1]
     end_name = sys.argv[2]
     wav_folder = sys.argv[3]
+    dest_folder = sys.argv[4]
+
     image_fname = wav_fname[5:] + '_spectro'
-   
+     
     # get file count
     _, _, files = next(os.walk(wav_folder))
     file_count = len(files)
+
+    # make the file to save stuff in
+    if not os.path.exists(dest_folder):
+        os.mkdir(dest_folder)
+        print("Directory", dest_folder, "was created")
+    else:
+        print("Directory", dest_folder, "already exists")
 
     # go through
     for i in range(file_count):
             make_save_spectro(wav_fname, image_fname)
             # how to increment wav_fname
             wav_fname = wav_fname[:-1] + str() 
-            image_fname = image_fname[:-1] + str()
+            image_fname = "./" + dest_folder + image_fname[:-1] + str()
 
 def make_save_spectro(wav_fname, image_fname): 
     """ inputs:
