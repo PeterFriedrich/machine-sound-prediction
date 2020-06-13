@@ -22,15 +22,13 @@ def main():
         print("use: python script.py <start file name> <end file name> <wav_folder> <destination folder>")
         return 0
 
-    wav_fname = sys.argv[1]
-    end_name = sys.argv[2]
-    wav_folder = sys.argv[3]
-    dest_folder = sys.argv[4]
-
-    image_fname = wav_fname[5:] + '_spectro'
+    # extract the cli args
+    end_name = sys.argv[1]
+    wav_folder = sys.argv[2]
+    dest_folder = sys.argv[3] + '/'
      
     # get file count
-    _, _, files = next(os.walk(wav_folder))
+    _, _, files = next(os.walk('./data/' + wav_folder))
     file_count = len(files)
 
     # make the file to save stuff in
@@ -40,12 +38,14 @@ def main():
     else:
         print("Directory", dest_folder, "already exists")
 
-    # go through
-    for i in range(file_count):
-            make_save_spectro(wav_fname, image_fname)
-            # how to increment wav_fname
-            wav_fname = wav_fname[:-1] + str() 
-            image_fname = "./" + dest_folder + image_fname[:-1] + str()
+    # go through the folder and apply transform/save func
+    for wav_file in files:
+            image_fname = "./" + dest_folder + wav_file
+            make_save_spectro(wav_file, image_fname)
+            if i % 50 == 0: # progress
+                print(f"finished {wav_file}, last is {files[-1]}.", end='\r', flush=True)
+
+    print("Finished spectrogram conversion.")
 
 def make_save_spectro(wav_fname, image_fname): 
     """ inputs:
