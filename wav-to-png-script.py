@@ -1,5 +1,10 @@
 """ This is a script to take each MIMII dataset
-file, make a spectrogram of it, and save it as a png """
+file, make a spectrogram of it, and save it as a png
+
+note: The chunk error simply means unsupported metadata at the end of the 
+wav files"""
+
+
 
 # imports
 from scipy.io import wavfile
@@ -19,16 +24,15 @@ import os
 
 def main():
     if len(sys.argv) < 2:
-        print("use: python script.py <start file name> <end file name> <wav_folder> <destination folder>")
+        print("use: python script.py <wav_folder> <destination folder>")
         return 0
 
     # extract the cli args
-    end_name = sys.argv[1]
-    wav_folder = sys.argv[2]
-    dest_folder = sys.argv[3] + '/'
+    wav_folder = sys.argv[1]
+    dest_folder = sys.argv[2] 
      
     # get file count
-    _, _, files = next(os.walk('./data/' + wav_folder))
+    _, _, files = next(os.walk(wav_folder))
     file_count = len(files)
 
     # make the file to save stuff in
@@ -40,10 +44,9 @@ def main():
 
     # go through the folder and apply transform/save func
     for wav_file in files:
-            image_fname = "./" + dest_folder + wav_file
-            make_save_spectro(wav_file, image_fname)
-            if i % 50 == 0: # progress
-                print(f"finished {wav_file}, last is {files[-1]}.", end='\r', flush=True)
+            image_fname = dest_folder + "/" + 'spectro_' + wav_file
+            make_save_spectro(wav_folder + '/' + wav_file, image_fname)
+            print(f"finished {wav_file}, last is {files[-1]}.", end='\r', flush=True)
 
     print("Finished spectrogram conversion.")
 
