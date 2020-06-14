@@ -60,6 +60,7 @@ def make_save_spectro(wav_fname, image_fname):
     plt.figure()
     # save image only
     plt.imsave(image_fname + ".png", spectro_array, format="png", cmap=None)
+    plt.close()
 
 if __name__ == "__main__":
     main()
