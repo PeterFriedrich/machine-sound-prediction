@@ -11,6 +11,7 @@ import scipy.io as sio
 from scipy import signal
 from scipy.fft import fftshift
 import matplotlib.pyplot as plt
+from PIL import Image
 
 import sys
 import os
@@ -35,12 +36,14 @@ def main():
         print("Directory", dest_folder, "was created")
     else:
         print("Directory", dest_folder, "already exists")
-
+    
+    counter = 0
     # go through the folder and apply transform/save func
     for wav_file in files:
             image_fname = dest_folder + "/" + 'spectro_' + wav_file[:-4] + wav_folder[12:17]
             make_save_spectro(wav_folder + '/' + wav_file, image_fname)
-            print(f"finished {wav_file}, last is {files[-1]}.", end='\r', flush=True)
+            counter += 1
+            print(f"finished {counter}, file_count is {file_count}.", end='\r', flush=True)
 
     print("Finished spectrogram conversion.")
 
@@ -57,10 +60,25 @@ def make_save_spectro(wav_fname, image_fname):
 
     # make spectrogram, needs to be square
     freqs, time_segs, spectro_array = signal.spectrogram(data[:, 0], samplerate)
-    plt.figure()
-    # save image only
-    plt.imsave(image_fname + ".png", spectro_array, format="png", cmap=None)
+    # save plot no whitespace 
+    plt.figure(figsize=(6,6))
+    fig = plt.pcolormesh(time_segs, freqs, spectro_array)
+    plt.axis('off')
+    fig.axes.get_xaxis().set_visible(False)
+    fig.axes.get_yaxis().set_visible(False)
+    plt.savefig(image_fname, bbox_inches='tight', pad_inches = 0)
     plt.close()
+
+    # reopen and crop with PIL
+    im = Image.open(image_fname)
+    width, height = im.size
+    # left, top, right, bottom, from top left
+    im1 = im.crop((0, 0, width - 8, height))
+    im1.save(image_name)
+    im.close()
+    im1.close()
+
+
 
 if __name__ == "__main__":
     main()
