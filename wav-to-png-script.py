@@ -18,7 +18,7 @@ import os
 
 def main():
     if len(sys.argv) < 2: # test cli args
-        print("use: python script.py <wav_folder> <destination folder>")
+        print("use: python script.py <wav_folder> <destination folder> <id_num>")
         return 0
 
     # extract the cli args
@@ -38,7 +38,7 @@ def main():
 
     # go through the folder and apply transform/save func
     for wav_file in files:
-            image_fname = dest_folder + "/" + 'spectro_' + wav_file
+            image_fname = dest_folder + "/" + 'spectro_' + wav_file[:-4] + wav_folder[12:17]
             make_save_spectro(wav_folder + '/' + wav_file, image_fname)
             print(f"finished {wav_file}, last is {files[-1]}.", end='\r', flush=True)
 
@@ -55,7 +55,7 @@ def make_save_spectro(wav_fname, image_fname):
     samplerate, data = sio.wavfile.read(wav_fname) # problem here?
     length = data.shape[0] / samplerate # sample/sample_rate = time
 
-    # make spectrogram
+    # make spectrogram, needs to be square
     freqs, time_segs, spectro_array = signal.spectrogram(data[:, 0], samplerate)
     plt.figure()
     # save image only
