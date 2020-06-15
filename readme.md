@@ -11,5 +11,10 @@ https://zenodo.org/record/3384388
 ### TODO:
 
 1. Write pre-processing code using basic signal processsing techniques
+- determine if better spectrograms can be created, these ones seem to be
+overly sparse
 
 2. Apply basic resnet to classify each spectral image
+- get more pretraining data, from healthy machines?
+- 
+- possibly move to resnet 80 or densnet 
