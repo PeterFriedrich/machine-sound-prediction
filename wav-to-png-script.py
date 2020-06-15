@@ -70,11 +70,11 @@ def make_save_spectro(wav_fname, image_fname):
     plt.close()
 
     # reopen and crop with PIL
-    im = Image.open(image_fname)
+    im = Image.open(image_fname + '.png')
     width, height = im.size
     # left, top, right, bottom, from top left
     im1 = im.crop((0, 0, width - 8, height))
-    im1.save(image_name)
+    im1.save(image_fname + '.png')
     im.close()
     im1.close()
 
