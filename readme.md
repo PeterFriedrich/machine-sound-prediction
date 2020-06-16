@@ -13,6 +13,7 @@ https://zenodo.org/record/3384388
 1. Write pre-processing code using basic signal processsing techniques
 - determine if better spectrograms can be created, these ones seem to be
 overly sparse
+- melceptrum coefficient plots? check video series and presentation
 
 2. Apply basic resnet to classify each spectral image
 - get more pretraining data, from healthy machines?
