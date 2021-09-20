@@ -14,6 +14,7 @@ Original baseline repo: https://github.com/MIMII-hitachi/mimii_baseline/
 
 16khz sampling rate, 16 bits per sample, 8 channels.
 
+Switching over to valve for first 
 First dataset is 0dB
 
 ### TODO:

@@ -1,6 +1,7 @@
-
+/data 
 *.wav
 *.jpg
 *.png
 *.pth
 *.swp
+todo.txt
