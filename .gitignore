@@ -5,3 +5,5 @@
 *.pth
 *.swp
 todo.txt
+/test-images
+
