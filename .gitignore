@@ -6,4 +6,4 @@
 *.swp
 todo.txt
 /test-images
-
+.ipynb_checkpoints
