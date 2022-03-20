@@ -1,8 +1,9 @@
 """ This is a script to take each MIMII dataset
-file, make a spectrogram of it, and save it as a png
+file from specified folder, make a spectrogram of it, and save it as a png
+in a destination folder.
 
 note: The chunk error simply means unsupported metadata at the end of the 
-wav files"""
+wav files(possibly not present after librosa update?)"""
 
 # imports
 from scipy.io import wavfile
@@ -10,8 +11,11 @@ import scipy.io as sio
 
 from scipy import signal
 from scipy.fft import fftshift
-import matplotlib.pyplot as plt
 from PIL import Image
+
+import librosa
+import librosa.display
+import matplotlib.pyplot as plt
 
 import sys
 import os
@@ -47,8 +51,33 @@ def main():
 
     print("Finished spectrogram conversion.")
 
-def make_save_spectro(wav_fname, image_fname): 
+def make_save_spectro(wav_fname, image_fname, spectro_func):
     """ inputs:
+    wav_fname: string, wav filename
+    image_fname: string, png filename
+    spectro_func: string, options: normal, log, mfcc 
+
+    Makes a spectrogram from an incoming wav file, and 
+    saves it as a png named image_fname
+    """
+    # extract info
+    y, sr = librosa.load(audio_path)
+
+    # create spectro figure (currently mfcc)
+    fig = plt.figure(figsize=(4,4))
+    plt.axis('off')
+    spectro_data = librosa.feature.mfcc(y=y, sr=sr)
+    librosa.display.specshow(data=spectro_data, sr=sr, x_axis="time",
+            cmap="plasma")
+
+    # save
+    fig.savefig(image_fname)
+    plt.close()
+
+def make_save_spectro_old(wav_fname, image_fname): 
+    """ 
+    DEPRECATED
+    inputs:
     wav_fname: string, wav filename
     image_fname: string, png filename
     Makes a spectrogram from an incoming wav file, and 
