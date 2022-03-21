@@ -51,17 +51,17 @@ def main():
 
     print("Finished spectrogram conversion.")
 
-def make_save_spectro(wav_fname, image_fname, spectro_func):
+def make_save_spectro(wav_fname, image_fname):
     """ inputs:
     wav_fname: string, wav filename
     image_fname: string, png filename
-    spectro_func: string, options: normal, log, mfcc 
+    spectro_func(TODO): string, options: normal, log, mfcc 
 
     Makes a spectrogram from an incoming wav file, and 
     saves it as a png named image_fname
     """
     # extract info
-    y, sr = librosa.load(audio_path)
+    y, sr = librosa.load(wav_fname)
 
     # create spectro figure (currently mfcc)
     fig = plt.figure(figsize=(4,4))
