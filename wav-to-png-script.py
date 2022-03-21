@@ -44,7 +44,7 @@ def main():
     counter = 0
     # go through the folder and apply transform/save func
     for wav_file in files:
-            image_fname = dest_folder + "/" + 'spectro_' + wav_file[:-4] + wav_folder[12:17]
+            image_fname = dest_folder + "/" + 'spectro_' + wav_file[:-4]
             make_save_spectro(wav_folder + '/' + wav_file, image_fname)
             counter += 1
             print(f"finished {counter}, file_count is {file_count}.", end='\r', flush=True)
