@@ -12,6 +12,7 @@ import scipy.io as sio
 from scipy import signal
 from scipy.fft import fftshift
 from PIL import Image
+# ^ old ----------------------------
 
 import librosa
 import librosa.display
@@ -19,6 +20,7 @@ import matplotlib.pyplot as plt
 
 import sys
 import os
+import re
 
 
 def main():
@@ -40,11 +42,15 @@ def main():
         print("Directory", dest_folder, "was created")
     else:
         print("Directory", dest_folder, "already exists")
+
+    # get the pump id
+    regex_pattern = r'id_\d{2}'
+    pump_id = re.search(regex_pattern, wav_folder).group(0)
     
     counter = 0
     # go through the folder and apply transform/save func
     for wav_file in files:
-            image_fname = dest_folder + "/" + 'spectro_' + wav_file[:-4]
+            image_fname = dest_folder + "/" + 'spectro_' + wav_file[:-4] + pump_id
             make_save_spectro(wav_folder + '/' + wav_file, image_fname)
             counter += 1
             print(f"finished {counter}, file_count is {file_count}.", end='\r', flush=True)
