@@ -24,3 +24,4 @@ on this method (basic visual comparisons seem to agree), and combining them does
 - Apply basic resnet to classify each spectral image
 - Grab more pre-training data, find other datasets, or places to scrape from. 
 - Move to mobilnet etc.
+- testing keys
